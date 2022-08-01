@@ -1,11 +1,12 @@
-package com.springboot.tutorial.service;
+	package com.springboot.tutorial.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-
+import org.apache.catalina.User;
 import org.apache.catalina.connector.Response;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -15,6 +16,9 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,15 +33,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private static final String BAD_REQUEST = null;
 	@Autowired
     private EmployeeRepository emprepo;
-
+	
 	@Override
 	public List<Employee> listAll() {
 		// TODO Auto-generated method stub
 		return emprepo.findAll();
 	}
-
-	 
-
 	@Override
 	public Employee saveEmployee(Employee emp) {
  		return emprepo.save(emp);
